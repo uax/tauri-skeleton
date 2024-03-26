@@ -20,18 +20,33 @@ export const router = createRouter({
       name: "login",
       component: () => import("@/views/auth/login.vue"),
     },
+    {
+      path: "/auth/register",
+      name: "register",
+      component: () => import("@/views/auth/register.vue"),
+    },
   ],
 });
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to) => {
+  // clear alert on route change
+  // const alertStore = useAlertStore();
+  // alertStore.clear();
+
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ["/auth/login", "/auth/register"];
+  const authRequired = !publicPages.includes(to.path);
   const authStore = useAuthStore();
 
-  if (
-    authStore.user &&
-    (to.path === "/auth/login" || to.path === "/auth/register")
-  ) {
-    next("/");
-  } else {
-    next();
+  const redirectTo =
+    authRequired && !authStore.user
+      ? "/auth/login"
+      : !authRequired && authStore.user
+      ? "/"
+      : null;
+
+  if (redirectTo) {
+    authStore.returnUrl = to.fullPath;
+    return redirectTo;
   }
 });
