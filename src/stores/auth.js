@@ -2,22 +2,21 @@ import { defineStore } from "pinia";
 import { router } from "@/router";
 export const useAuthStore = defineStore("auth", {
   state: () => ({
-    user: localStorage.getItem("user"),
+    user: JSON.parse(localStorage.getItem("user")),
     returnUrl: null,
     isAuthenticated: false,
   }),
   actions: {
     async login(username, password) {
-      console.log(username, password);
-      localStorage.setItem("user", username);
-      this.user = username;
-
+      const user = await { username: "Noah", token: "123321" }; //mockLogin(username, password);
+      localStorage.setItem("user", JSON.stringify(user));
+      this.user = user;
       this.isAuthenticated = true;
       router.push({ name: "dashboard" });
     },
-    logout() {
-      this.user = null;
+    async logout() {
       localStorage.removeItem("user");
+      this.user = null;
       this.isAuthenticated = false;
       router.push({ name: "login" });
     },
