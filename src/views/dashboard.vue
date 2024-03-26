@@ -6,7 +6,15 @@
 <script setup>
 import { useAuthStore } from "@/stores";
 import { fetchWrapper } from "@/request";
+import { onMounted } from "vue";
+import { useAlertStore } from "@/stores";
 const authStore = useAuthStore();
+
+onMounted(() => {
+  const alertStore = useAlertStore();
+  alertStore.success("通知消息：成功");
+});
+
 const logout = async () => {
   await authStore.logout();
 };
