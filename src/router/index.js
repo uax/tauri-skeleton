@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore, useAlertStore } from "@/stores";
 export const router = createRouter({
   history: createWebHistory(),
+  linkActiveClass: "",
+  linkExactActiveClass: "",
   routes: [
     {
       path: "/",
@@ -12,6 +14,16 @@ export const router = createRouter({
           path: "",
           name: "dashboard",
           component: () => import("@/views/dashboard.vue"),
+        },
+        {
+          path: "about",
+          name: "about",
+          component: () => import("@/views/About.vue"),
+        },
+        {
+          path: "/:pathMatch(.*)*",
+          name: "notfound",
+          component: () => import("@/views/notfound.vue"),
         },
       ],
     },

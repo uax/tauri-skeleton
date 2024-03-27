@@ -20,7 +20,7 @@ const logout = async () => {
 };
 const get = () => {
   fetchWrapper
-    .get("/get?id=1")
+    .get("/status/403")
     .then((res) => {
       console.log(res);
     })
