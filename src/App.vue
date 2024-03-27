@@ -1,8 +1,8 @@
 <template>
   <router-view />
-  <Alert />
+  <Notification />
 </template>
 
 <script setup>
-import { Alert } from "@/components";
+import { Notification } from "@/components";
 </script>

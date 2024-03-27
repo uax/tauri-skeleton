@@ -117,6 +117,7 @@
                     <li class="mt-auto">
                       <router-link
                         to="/settings"
+                        @click.native="sidebarOpen = false"
                         class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
                       >
                         <Cog6ToothIcon
@@ -326,22 +327,33 @@
                 <MenuItems
                   class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
                 >
-                  <router-link
-                    to="/profile"
-                    class="flex items-center block px-3 py-1 text-sm leading-6 text-gray-900 hover:bg-gray-50"
-                  >
-                    <UserIcon class="mr-2 h-5 w-5" aria-hidden="true" />
-                    Your profile
-                  </router-link>
-                  <button
-                    @click="logout"
-                    class="flex items-center w-full block px-3 py-1 text-sm leading-6 text-gray-900 hover:bg-gray-50"
-                  >
-                    <ArrowRightStartOnRectangleIcon
-                      class="mr-2 h-5 w-5"
-                      aria-hidden="true"
-                    />Sign out
-                  </button>
+                  <MenuItem v-slot="{ active, close }">
+                    <router-link
+                      to="/profile"
+                      :class="[
+                        active ? 'bg-gray-50' : '',
+                        'group flex items-center px-3 py-1 text-sm leading-6 text-gray-900',
+                      ]"
+                      @click.capture="close"
+                    >
+                      <UserIcon class="mr-2 h-5 w-5" aria-hidden="true" />
+                      Your profile
+                    </router-link>
+                  </MenuItem>
+                  <MenuItem v-slot="{ active, close }">
+                    <button
+                      @click="logout"
+                      :class="[
+                        active ? 'bg-gray-50' : '',
+                        'group flex w-full items-center px-3 py-1 text-sm leading-6 text-gray-900',
+                      ]"
+                    >
+                      <ArrowRightStartOnRectangleIcon
+                        class="mr-2 h-5 w-5"
+                        aria-hidden="true"
+                      />Sign out
+                    </button>
+                  </MenuItem>
                 </MenuItems>
               </transition>
             </Menu>

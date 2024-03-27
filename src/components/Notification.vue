@@ -1,7 +1,7 @@
 <template>
   <!-- Global notification live region, render this permanently at the end of the document -->
   <div
-    v-if="alert"
+    v-if="notification"
     aria-live="assertive"
     class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6 mt-16"
   >
@@ -29,10 +29,10 @@
               </div>
               <div class="ml-3 w-0 flex-1 pt-0.5">
                 <p class="text-sm font-medium text-gray-900">
-                  {{ alert.title }}
+                  {{ notification.title }}
                 </p>
                 <p class="mt-1 text-sm text-gray-500">
-                  {{ alert.message }}
+                  {{ notification.message }}
                 </p>
               </div>
               <div class="ml-4 flex flex-shrink-0">
@@ -55,12 +55,12 @@
 
 <script setup>
 import { storeToRefs } from "pinia";
-import { useAlertStore } from "@/stores";
+import { useNotificationStore } from "@/stores";
 import { ref } from "vue";
 import { CheckCircleIcon } from "@heroicons/vue/24/outline";
 import { XMarkIcon } from "@heroicons/vue/20/solid";
-const alertStore = useAlertStore();
-const { alert } = storeToRefs(alertStore);
+const notificationStore = useNotificationStore();
+const { notification } = storeToRefs(notificationStore);
 
 const show = ref(true);
 </script>

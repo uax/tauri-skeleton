@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { useAuthStore, useAlertStore } from "@/stores";
+import { useAuthStore, useNotificationStore } from "@/stores";
 export const router = createRouter({
   history: createWebHistory(),
   linkActiveClass: "",
@@ -42,8 +42,8 @@ export const router = createRouter({
 
 router.beforeEach(async (to) => {
   // clear alert on route change
-  const alertStore = useAlertStore();
-  alertStore.clear();
+  const notificationStore = useNotificationStore();
+  notificationStore.clear();
 
   // redirect to login page if not logged in and trying to access a restricted page
   const publicPages = ["/auth/login", "/auth/register"];
