@@ -8,5 +8,9 @@ This template should help get you started developing with Tauri + Vue 3 + Tailwi
 
 ## Developer
 
+Using [pnpm](https://pnpm.io/)
+
+```bash
 pnpm install
 pnpm run tauri dev
+```
