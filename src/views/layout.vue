@@ -118,6 +118,7 @@
                       <router-link
                         to="/settings"
                         @click.native="sidebarOpen = false"
+                        exact-active-class="bg-gray-50 text-indigo-600"
                         class="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
                       >
                         <Cog6ToothIcon
