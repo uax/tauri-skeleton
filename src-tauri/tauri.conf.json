@@ -27,10 +27,18 @@
     "security": {
       "csp": null
     },
+    "updater": {
+      "active": true,
+      "endpoints": [
+        "https://uax.github.io/data/updater.json"
+      ],
+      "dialog": false,
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDQ0RUU0RDhCNDI4QjdDQzkKUldUSmZJdENpMDN1UkJEcG5hbnRnbUFkV09UU29EbFRLNStQZTR6cC9BUjA0MTV1dm81Ymx2cXoK"
+    },
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.tauri.dev",
+      "identifier": "com.noah.dev",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
