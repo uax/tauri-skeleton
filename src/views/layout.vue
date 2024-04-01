@@ -143,7 +143,7 @@
     >
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <div
-        class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4"
+        class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white dark:bg-gray-900 px-6 pb-4"
       >
         <div class="flex h-16 shrink-0 items-center">
           <img class="h-8 w-auto" src="@/assets/vue.svg" alt="Your Company" />
@@ -155,8 +155,8 @@
                 <li v-for="item in navigation" :key="item.name">
                   <router-link
                     :to="item.href"
-                    exact-active-class="bg-gray-50 text-indigo-600"
-                    class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-700 hover:text-indigo-600 hover:bg-gray-50"
+                    exact-active-class="bg-gray-50 text-indigo-600 dark:bg-gray-800 dark:text-white"
+                    class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-700 dark:text-gray-400 hover:text-indigo-600 hover:bg-gray-50 dark:hover:text-white dark:hover:bg-gray-800"
                   >
                     <component
                       :is="item.icon"
@@ -283,6 +283,16 @@
               aria-hidden="true"
             />
 
+            <button @click="toggleDark()">
+              <MoonIcon
+                v-if="isDark"
+                class="w-6 h-6 inline-block text-gray-400 hover:text-gray-500"
+              />
+              <SunIcon
+                v-else
+                class="w-6 h-6 inline-block text-gray-400 hover:text-gray-500"
+              />
+            </button>
             <!-- Profile dropdown -->
             <Menu as="div" class="relative">
               <MenuButton class="-m-1.5 flex items-center p-1.5">
@@ -370,7 +380,11 @@
 <script setup>
 import { ref } from "vue";
 import { useAuthStore } from "@/stores";
-
+import { useDark, useToggle } from "@vueuse/core";
+const isDark = useDark({
+  storageKey: "theme",
+});
+const toggleDark = useToggle(isDark);
 const authStore = useAuthStore();
 const { user, logout } = authStore;
 import {
@@ -393,7 +407,9 @@ import {
   DocumentDuplicateIcon,
   FolderIcon,
   HomeIcon,
+  MoonIcon,
   IdentificationIcon,
+  SunIcon,
   UserIcon,
   UsersIcon,
   XMarkIcon,
