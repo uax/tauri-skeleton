@@ -58,7 +58,7 @@
                 <div class="flex h-16 shrink-0 items-center">
                   <img
                     class="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                    src="@/assets/vue.svg"
                     alt="Your Company"
                   />
                 </div>
@@ -83,7 +83,7 @@
                         </li>
                       </ul>
                     </li>
-                    <li>
+                    <!-- <li>
                       <div
                         class="text-xs font-semibold leading-6 text-gray-400"
                       >
@@ -113,7 +113,7 @@
                           </a>
                         </li>
                       </ul>
-                    </li>
+                    </li> -->
                     <li class="mt-auto">
                       <router-link
                         to="/settings"
@@ -125,7 +125,7 @@
                           class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
                           aria-hidden="true"
                         />
-                        Settings
+                        设置
                       </router-link>
                     </li>
                   </ul>
@@ -146,11 +146,7 @@
         class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4"
       >
         <div class="flex h-16 shrink-0 items-center">
-          <img
-            class="h-8 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          />
+          <img class="h-8 w-auto" src="@/assets/vue.svg" alt="Your Company" />
         </div>
         <nav class="flex flex-1 flex-col">
           <ul role="list" class="flex flex-1 flex-col gap-y-7">
@@ -194,7 +190,7 @@
                 </li>
               </ul>
             </li>
-            <li>
+            <!-- <li>
               <div class="text-xs font-semibold leading-6 text-gray-400">
                 Your teams
               </div>
@@ -222,7 +218,7 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> -->
             <li class="mt-auto">
               <router-link
                 to="/settings"
@@ -233,7 +229,7 @@
                   class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
                   aria-hidden="true"
                 />
-                Settings
+                设置
               </router-link>
             </li>
           </ul>
@@ -338,7 +334,7 @@
                       @click.capture="close"
                     >
                       <UserIcon class="mr-2 h-5 w-5" aria-hidden="true" />
-                      Your profile
+                      个人资料
                     </router-link>
                   </MenuItem>
                   <MenuItem v-slot="{ active, close }">
@@ -352,7 +348,7 @@
                       <ArrowRightStartOnRectangleIcon
                         class="mr-2 h-5 w-5"
                         aria-hidden="true"
-                      />Sign out
+                      />退出
                     </button>
                   </MenuItem>
                 </MenuItems>
