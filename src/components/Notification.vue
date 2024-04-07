@@ -1,7 +1,7 @@
 <template>
   <!-- Global notification live region, render this permanently at the end of the document -->
   <div
-    v-if="notification"
+    v-if="showNotification && notification"
     aria-live="assertive"
     class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6 mt-16"
   >
@@ -16,7 +16,7 @@
         leave-to-class="opacity-0 translate-x-full"
       >
         <div
-          v-if="show"
+          v-if="showNotification && !notificationTransitioning"
           class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5"
         >
           <div class="p-4">
@@ -38,7 +38,7 @@
               <div class="ml-4 flex flex-shrink-0">
                 <button
                   type="button"
-                  @click="show = false"
+                  @click="notificationStore.clear()"
                   class="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   <span class="sr-only">Close</span>
@@ -60,7 +60,8 @@ import { ref } from "vue";
 import { CheckCircleIcon } from "@heroicons/vue/24/outline";
 import { XMarkIcon } from "@heroicons/vue/20/solid";
 const notificationStore = useNotificationStore();
-const { notification } = storeToRefs(notificationStore);
+const { notification, showNotification, notificationTransitioning } =
+  storeToRefs(notificationStore);
 
 const show = ref(true);
 </script>

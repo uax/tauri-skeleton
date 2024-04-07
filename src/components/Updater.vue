@@ -87,7 +87,7 @@
                 <button
                   type="button"
                   class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:ml-3 sm:mt-0 sm:w-auto"
-                  @click="open = false"
+                  @click="handleSkip"
                   ref="cancelButtonRef"
                 >
                   Skip This Version
@@ -110,15 +110,34 @@ const props = defineProps({
   },
 });
 
-import { ref } from "vue";
+import { defineEmits, onUnmounted, ref } from "vue";
 import { installUpdate, onUpdaterEvent } from "@tauri-apps/api/updater";
 import { relaunch } from "@tauri-apps/api/process";
 
 const listen = ref(null);
-const unlisten = onUpdaterEvent(({ error, status }) => {
-  if (status === "ERROR") {
-    listen.value = error;
-  }
+let unlisten;
+
+const setupUpdaterListener = async () => {
+  unlisten = await onUpdaterEvent(({ error, status }) => {
+    console.log(status);
+    if (status === "ERROR") {
+      listen.value = error;
+      updating.value = false;
+    }
+  });
+};
+
+setupUpdaterListener();
+
+const emit = defineEmits(["close"]);
+const handleSkip = () => {
+  emit("close");
+  unlisten(); // 现在可以正确调用 unlisten 函数
+};
+
+onUnmounted(() => {
+  console.log("onUnmounted");
+  unlisten && unlisten(); // 确保在组件卸载时也取消监听
 });
 
 import {
@@ -136,10 +155,21 @@ const update = async () => {
   try {
     updating.value = true;
     listen.value = null;
-    await installUpdate();
-    await relaunch();
+    const updateResult = await installUpdate();
+    console.log(updateResult);
+    if (updateResult.status !== "UPDATED") {
+      // 处理更新失败或被跳过的情况
+      listen.value = updateResult.error || "Update failed or skipped.";
+      updating.value = false;
+      // 可以在这里添加其他错误处理逻辑,例如显示错误消息等
+    } else {
+      // 更新成功,重新启动应用程序
+      await relaunch();
+    }
   } catch (error) {
     console.log(error);
+    updating.value = false;
+    // 处理其他未捕获的错误
   }
 };
 </script>

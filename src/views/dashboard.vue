@@ -11,6 +11,7 @@ import { useNotificationStore } from "@/stores";
 const authStore = useAuthStore();
 
 onMounted(() => {
+  console.log("onMounted");
   const notification = useNotificationStore();
   notification.success("通知消息：成功");
 });
